@@ -1,0 +1,23 @@
+# Roda em todo pull request. É esta verificação que a proteção da main deve
+# exigir: assim um PR que não compila não chega à revisão humana.
+name: Verificar
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # `npm run build` roda o TypeScript junto: pega erro que o navegador
+      # não mostra e que passa despercebido numa leitura rápida do diff.
+      - run: npm run build
