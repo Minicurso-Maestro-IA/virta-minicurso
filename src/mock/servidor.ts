@@ -121,14 +121,14 @@ async function responder(metodo: string, caminho: string, busca: URLSearchParams
   if (caminho === "/auth/login" && metodo === "POST") {
     const { email, password } = corpoDe<{ email: string; password: string }>(init);
     const u = b.usuarios.find((x) => x.email.toLowerCase() === String(email).toLowerCase());
-    if (!u || u.password !== password) return erro("login.messages.invalid_credentials", 401);
+    if (!u || u.password !== password) return erro("auth.errors.invalid_credentials", 401);
     return json({ token: `falso-${u.id}-${Date.now()}`, id: u.id, name: u.name, email: u.email });
   }
 
   if (caminho === "/auth/register" && metodo === "POST") {
     const { name, email, password } = corpoDe<{ name: string; email: string; password: string }>(init);
     if (b.usuarios.some((x) => x.email.toLowerCase() === String(email).toLowerCase()))
-      return erro("register.messages.email_taken", 409);
+      return erro("auth.errors.email_taken", 409);
     b.usuarios.push({
       id: novoId(),
       name,

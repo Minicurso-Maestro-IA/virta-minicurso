@@ -11,31 +11,30 @@ type GoogleButtonProps = {
 export function GoogleButton({ onCredential, onError }: GoogleButtonProps) {
   const { t } = useTranslation();
 
-  // With no Client ID configured, show a disabled, explanatory placeholder.
-  if (!isGoogleEnabled) {
-    return (
-      <button
-        type="button"
-        disabled
-        title={t("login.google.not_configured")}
-        className="flex w-full items-center justify-center gap-2 h-11 rounded-lg border border-dashed border-zinc-300 bg-zinc-50 text-sm text-zinc-400 cursor-not-allowed"
-      >
-        {t("login.actions.login_with_google")}
-      </button>
-    );
-  }
+  // Sem Client ID nao ha login com Google: a tela nao mostra nem o botao nem o
+  // separador "ou". O separador mora aqui dentro justamente para sumir junto.
+  if (!isGoogleEnabled) return null;
 
   return (
-    <div className="flex justify-center [color-scheme:light]">
-      <GoogleLogin
-        onSuccess={(res) => {
-          if (res.credential) onCredential(res.credential);
-          else onError?.();
-        }}
-        onError={() => onError?.()}
-        text="signin_with"
-        shape="rectangular"
-      />
-    </div>
+    <>
+      <div className="flex items-center gap-3">
+        <span className="h-px flex-1 bg-zinc-200" />
+        <span className="text-xs uppercase tracking-wide text-zinc-400">
+          {t("login.google.or")}
+        </span>
+        <span className="h-px flex-1 bg-zinc-200" />
+      </div>
+      <div className="flex justify-center [color-scheme:light]">
+        <GoogleLogin
+          onSuccess={(res) => {
+            if (res.credential) onCredential(res.credential);
+            else onError?.();
+          }}
+          onError={() => onError?.()}
+          text="signin_with"
+          shape="rectangular"
+        />
+      </div>
+    </>
   );
 }

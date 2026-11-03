@@ -216,14 +216,6 @@ export function RegisterForm() {
           </span>
         </button>
 
-        <div className="flex items-center gap-3">
-          <span className="h-px flex-1 bg-zinc-200" />
-          <span className="text-xs uppercase tracking-wide text-zinc-400">
-            {t("login.google.or")}
-          </span>
-          <span className="h-px flex-1 bg-zinc-200" />
-        </div>
-
         <GoogleButton
           onCredential={(credential) =>
             authenticate(() => loginWithGoogle(credential))
