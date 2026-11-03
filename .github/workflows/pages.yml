@@ -1,5 +1,4 @@
-# Publica o app no GitHub Pages a cada push na main.
-# O aluno abre a URL para ver os defeitos; para consertar, clona este repositório.
+# Publica o fork do virta no GitHub Pages a cada push na main.
 name: Publicar no GitHub Pages
 
 on:
@@ -24,15 +23,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
       - run: npm ci
       - run: npm run build
+      # O app usa BrowserRouter. O GitHub Pages não tem servidor para reescrever
+      # rotas, então abrir /app/perfil direto cairia em 404. Servindo o próprio
+      # index.html como página de erro, o roteador assume e a rota funciona.
+      - run: cp dist/index.html dist/404.html
       - uses: actions/configure-pages@v5
-        # Liga o Pages no modo "GitHub Actions" por conta própria. Sem isto, a
-        # action falha com "Get Pages site failed" até alguém trocar a fonte na
-        # mão em Settings, e o repositório fica publicando o código cru pelo
-        # modo "Deploy from a branch".
-        with:
-          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

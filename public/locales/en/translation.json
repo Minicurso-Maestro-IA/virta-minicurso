@@ -1,0 +1,270 @@
+{
+  "login": {
+    "branding": {
+      "title": "The management platform from now to the future",
+      "description": "Track your finances, organize your tasks and connect with your collaborators",
+      "footer": "© 2026 Virta. All rights reserved."
+    },
+
+    "form": {
+      "title": "Welcome to Virta",
+      "title_register": "Create your account",
+      "title_verify": "Verify your email",
+      "description": "Log in to continue",
+      "description_register": "Sign up to get started",
+      "description_verify": "We have sent a 6-digit activation code to your email.",
+      "name_label": "Full Name",
+      "name_placeholder": "Enter your full name",
+      "email_label": "Email",
+      "email_placeholder": "Enter your email",
+      "password_label": "Password",
+      "password_placeholder": "Enter your password",
+      "confirm_password_label": "Confirm Password",
+      "confirm_password_placeholder": "Re-enter your password",
+      "code_label": "Verification Code"
+    },
+
+    "actions": {
+      "submit": "Sign in",
+      "submit_register": "Sign up",
+      "submit_verify": "Confirm Code",
+      "cancel": "Cancel and return to sign in",
+      "loading": "Loading...",
+      "send": "Send instructions",
+      "save": "Save new password",
+      "back_to_login": "Back to sign in",
+      "forgot_password": "Forgot your password?",
+      "form_register": "Don't have an account? Sign up",
+      "login_with_google": "Sign in with Google",
+      "form_login": "Already have an account? Sign in"
+    },
+
+    "google": {
+      "or": "or",
+      "not_configured": "Set VITE_GOOGLE_CLIENT_ID in the .env.local file to enable Google sign-in."
+    },
+
+    "recover": {
+      "title": "Recover password",
+      "description": "Enter your email and we will send reset instructions.",
+      "success": "If this email is registered, you will receive instructions shortly."
+    },
+
+    "reset": {
+      "title": "Reset password",
+      "description": "Choose a new password for your account.",
+      "success": "Password reset successfully. Please sign in.",
+      "new_password_label": "New password",
+      "confirm_label": "Confirm new password"
+    },
+
+    "messages": {
+      "success": "Access authorized!",
+      "error": "Invalid email or password!",
+      "generic_error": "An unexpected error occurred. Please try again later."
+    },
+
+    "validation": {
+      "name_required": "Name is required",
+      "email_required": "Email is required",
+      "email_invalid": "Invalid email format",
+      "password_required": "Password is required",
+      "password_min": "Password must be at least 6 characters",
+      "password_weak": "The password does not meet all requirements",
+      "password_mismatch": "Passwords do not match",
+      "strength_weak": "Weak",
+      "strength_medium": "Medium",
+      "strength_strong": "Strong",
+      "req_length": "Minimum of 8 characters",
+      "req_upper": "One uppercase letter",
+      "req_lower": "One lowercase letter",
+      "req_number": "One number",
+      "req_special": "One special character (@$!%*?&#)"
+    }
+  },
+
+  "auth": {
+    "errors": {
+      "email_taken": "This email is already registered.",
+      "invalid_credentials": "Invalid email or password.",
+      "invalid_token": "Invalid or missing token.",
+      "expired_token": "This reset link has expired.",
+      "wrong_current_password": "The current password is incorrect.",
+      "google_failed": "Could not sign in with Google. Please try again.",
+      "server_unreachable": "Could not reach the server. Make sure the backend is running."
+    }
+  },
+
+  "app": {
+    "logout": "Sign out",
+    "nav": {
+      "dashboard": "Dashboard",
+      "wallets": "Wallets",
+      "transactions": "Transactions",
+      "members": "Members",
+      "categories": "Categories",
+      "reports": "Reports",
+      "settings": "Wallet settings",
+      "profile": "Profile",
+      "change_password": "Change password"
+    },
+    "reports": {
+      "title": "Reports",
+      "subtitle": "Pick a period and filters, see the summary and download the statement.",
+      "from_label": "From",
+      "to_label": "To",
+      "invalid_range": "The start month can't be after the end month.",
+      "presets": {
+        "this_month": "This month",
+        "last_3": "Last 3 months",
+        "last_6": "Last 6 months",
+        "this_year": "This year"
+      },
+      "type_label": "Type",
+      "type_all": "All",
+      "type_income": "Income",
+      "type_expense": "Expenses",
+      "categories_label": "Categories",
+      "categories_hint": "With none selected, every category is included.",
+      "categories_none": "No category has transactions in this period.",
+      "clear_filters": "Clear filters",
+      "download": "Download statement (CSV)",
+      "downloading": "Generating...",
+      "count_one": "{{count}} transaction in the period",
+      "count_other": "{{count}} transactions in the period",
+      "income": "Income",
+      "expense": "Expenses",
+      "balance": "Balance",
+      "by_month": "Month by month",
+      "by_category": "By category",
+      "empty": "No transactions match these filters."
+    },
+    "switcher": {
+      "label": "Selected wallet",
+      "none": "No wallet",
+      "your_wallets": "Your wallets"
+    },
+    "categories": {
+      "title": "Categories",
+      "subtitle": "Organize your income and expenses into categories.",
+      "search_placeholder": "Search by name...",
+      "filter_all": "All",
+      "no_results": "No categories found.",
+      "new": "New category",
+      "name": "Name",
+      "name_placeholder": "e.g. Food, Salary",
+      "type": "Type",
+      "income": "Income",
+      "expense": "Expense",
+      "color": "Color",
+      "add": "Add",
+      "save": "Save",
+      "edit": "Edit category",
+      "edit_action": "Edit",
+      "empty": "You don't have any categories yet. Create your first one!",
+      "created": "Category created.",
+      "updated": "Category updated.",
+      "deleted": "Category removed.",
+      "confirm_delete": "Remove this category?"
+    },
+    "wallet_settings": {
+      "title": "Wallet settings",
+      "subtitle": "Edit the details or delete this wallet.",
+      "no_wallet": "Select or create a wallet to get started."
+    },
+    "profile": {
+      "title": "Profile",
+      "subtitle": "Manage your details and password.",
+      "section_info": "Account details",
+      "section_security": "Security",
+      "name_label": "Name",
+      "email_label": "Email",
+      "save": "Save changes",
+      "updated": "Profile updated.",
+      "name_min": "Name must be at least 2 characters."
+    },
+    "dashboard": {
+      "title": "Overview",
+      "greeting": "Hi, {{name}}! Here is your finance summary.",
+      "balance": "Current balance",
+      "income": "Income",
+      "expense": "Expenses",
+      "transaction_count": "Transactions",
+      "select_wallet": "Wallet",
+      "chart_title": "Income vs. Expenses by month",
+      "by_category": "By category",
+      "recent": "Recent transactions",
+      "no_transactions": "No transactions yet.",
+      "empty_wallets": "Create a wallet to see your financial summary.",
+      "go_to_wallets": "Go to wallets"
+    },
+    "transactions": {
+      "title": "Transactions",
+      "new": "New transaction",
+      "type": "Type",
+      "income": "Income",
+      "expense": "Expense",
+      "amount": "Amount",
+      "description": "Description",
+      "description_placeholder": "Optional",
+      "date": "Date",
+      "category": "Category",
+      "no_category": "No category",
+      "add": "Add",
+      "save": "Save",
+      "edit": "Edit transaction",
+      "edit_action": "Edit",
+      "empty": "No transactions in this wallet yet.",
+      "created": "Transaction added.",
+      "updated": "Transaction updated.",
+      "deleted": "Transaction removed.",
+      "confirm_delete": "Remove this transaction?"
+    },
+    "wallets": {
+      "title": "Wallets",
+      "subtitle": "Manage your wallets and share them with other people.",
+      "new": "New wallet",
+      "cancel": "Cancel",
+      "create": "Create wallet",
+      "save": "Save",
+      "edit": "Edit",
+      "delete": "Delete",
+      "back": "Back to wallets",
+      "name_label": "Name",
+      "name_placeholder": "e.g. Home, Trip, Company",
+      "description_label": "Description",
+      "description_placeholder": "Optional",
+      "empty": "You don't have any wallets yet. Create your first one!",
+      "owner": "Owner",
+      "created": "Wallet created successfully.",
+      "updated": "Wallet updated.",
+      "deleted": "Wallet deleted.",
+      "confirm_delete": "Delete this wallet? This removes all of its data.",
+      "confirm_remove_member": "Remove this member from the wallet?",
+      "member_added": "Member added.",
+      "member_invited": "Invite sent! They need to set a password via the link.",
+      "member_updated": "Member role updated.",
+      "member_removed": "Member removed.",
+      "delete_last_hint": "You need at least one wallet. Create another one before deleting this.",
+      "roles": {
+        "OWNER": "Owner",
+        "EDITOR": "Editor",
+        "VIEWER": "Viewer"
+      },
+      "members": {
+        "title": "Members",
+        "add": "Add",
+        "email_placeholder": "Member e-mail",
+        "remove": "Remove"
+      }
+    },
+    "change_password": {
+      "title": "Change password",
+      "description": "Confirm your current password and set a new one.",
+      "current_label": "Current password",
+      "new_label": "New password",
+      "confirm_label": "Confirm new password",
+      "success": "Password changed successfully."
+    }
+  }
+}

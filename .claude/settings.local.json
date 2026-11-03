@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\Lucas\\\\WebstormProjects\\\\virta\\\\virta-front-end\" -Recurse -Directory)",
+      "Bash(Select-Object FullName)",
+      "Bash(npm install *)",
+      "Bash(npm ls *)",
+      "Bash(npx pwa-assets-generator *)",
+      "Bash(npm run *)",
+      "Bash(ls \"C:\\\\Users\\\\Lucas\\\\WebstormProjects\\\\virta\")",
+      "Bash(curl -s -i -X OPTIONS \"https://virta-back-end.onrender.com/auth/login\" -H \"Origin: https://virta-front-end.vercel.app\" -H \"Access-Control-Request-Method: POST\" -H \"Access-Control-Request-Headers: content-type\" --max-time 90)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" -X OPTIONS \"https://virta-back-end.onrender.com/auth/login\" -H \"Origin: https://virta-front-end-git-main-qualquer.vercel.app\" -H \"Access-Control-Request-Method: POST\" -H \"Access-Control-Request-Headers: content-type\" --max-time 60)",
+      "Bash(curl -s \"https://virta-front-end.vercel.app/assets/index-CaWX_kv1.js\" --max-time 60)",
+      "Bash(grep -oE '\"[^\"]{0,60}\\(onrender|vercel\\\\.app\\)[^\"]{0,40}\"|`[^`]{0,40}/auth/login`')",
+      "Bash(curl -s -i -X POST \"https://virta-back-end.onrender.com/auth/login\" -H \"Origin: https://virta-front-end.vercel.app\" -H \"Content-Type: application/json\" -d '{\"email\":\"teste-diagnostico@example.com\",\"password\":\"senhaerrada123\"}' --max-time 90)",
+      "Bash(grep -oE '.{0,80}apiUrl:.{0,120}')",
+      "Bash(curl -s -o /tmp/body.txt -w \"status=%{http_code} time=%{time_total}s\\\\n\" -X POST \"https://virta-back-end.onrender.com/auth/login\" -H \"Origin: https://virta-front-end.vercel.app\" -H \"Content-Type: application/json\" -d '{\"email\":\"teste-diagnostico@example.com\",\"password\":\"senhaerrada123\"}' --max-time 90)",
+      "Read(//tmp/**)",
+      "Bash(curl -s -w \"\\\\nstatus=%{http_code}\\\\n\" -X POST \"https://virta-back-end.onrender.com/auth/login\" -H \"Content-Type: application/json\" -d '{\"email\":\"teste-diagnostico@example.com\",\"password\":\"senhaerrada123\"}' --max-time 90)",
+      "Bash(curl -s -w \"\\\\nstatus=%{http_code} time=%{time_total}s\\\\n\" -X POST \"https://virta-back-end.onrender.com/auth/login\" -H \"Origin: https://virta-front-end.vercel.app\" -H \"Content-Type: application/json\" -d '{\"email\":\"teste-diagnostico@example.com\",\"password\":\"senhaerrada123\"}' --max-time 90)"
+    ]
+  }
+}

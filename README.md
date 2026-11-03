@@ -1,11 +1,13 @@
-# Virta — minicurso
+# Virta — fork do minicurso
 
-App de carteira pessoal usado no minicurso de IA generativa. **Ele tem defeitos
-de propósito**: cada um é uma tarefa para você resolver com um agente de IA.
+Este é o **virta de verdade**, o app de controle financeiro, adaptado para a
+aula: o backend Java foi substituído por um servidor falso que roda dentro do
+próprio navegador. Todas as telas funcionam, e **alguns defeitos visuais foram
+plantados de propósito** — cada um é uma tarefa.
 
-- **Site:** publicado pelo GitHub Pages a cada push na `main`
-- **Tarefas:** na aba [Issues](../../issues) deste repositório
-- **Quadro:** o board do projeto, onde os cards andam do Backlog ao Done
+- **Site:** https://minicurso-maestro-ia.github.io/virta-minicurso/
+- **Tarefas:** na aba [Issues](../../issues)
+- **Entrar:** `maria@virta.com` / `123456` (ou cadastre-se; é tudo no navegador)
 
 ---
 
@@ -18,83 +20,49 @@ npm install
 npm run dev
 ```
 
-É só isso. **Não tem backend, não tem banco para instalar, não tem variável de
-ambiente para configurar.**
+**Não precisa de backend, banco, Java nem variável de ambiente.** Os dados vivem
+no `localStorage` e são semeados na primeira abertura.
 
-Os dados vivem no `localStorage` do navegador e são criados sozinhos na primeira
-abertura, com oito transações de exemplo. O botão **Recomeçar dados** devolve
-tudo ao estado inicial — use sem medo quando bagunçar testando.
-
-Para conferir que seu conserto compila:
+Para conferir que seu conserto compila — comando que aparece no *Pronto quando*
+de toda tarefa:
 
 ```bash
 npm run build
 ```
 
-Esse comando aparece no **Pronto quando** de quase toda tarefa. Ele roda o
-TypeScript junto, então pega erro que o navegador não mostra.
+## Como funciona sem backend
 
----
+O virta original conversa com uma API Spring. Aqui, `src/mock/servidor.ts`
+intercepta o `fetch` do navegador e responde as mesmas rotas a partir de
+`src/mock/dados.ts`.
+
+A interceptação é no `fetch`, e não em cada service, de propósito: o app faz rede
+em quatro lugares diferentes (`lib/http.ts`, `lib/api.ts`, o download do extrato
+e a assinatura de eventos), e remendar os quatro significaria alterar justamente
+o código que vocês vão ler. **Nenhum componente, service ou contexto foi
+alterado** para o app funcionar — só quem responde é outro.
+
+O login com Google fica desativado, porque OAuth de verdade precisa de servidor.
+O app já trata isso sozinho: sem `VITE_GOOGLE_CLIENT_ID`, o botão não aparece.
+
+## As telas
+
+Dashboard, Transações, Membros, Categorias, Relatórios, Configurações da
+carteira, Perfil, Trocar senha, Login, Cadastro, Esqueci a senha e Redefinir
+senha.
 
 ## O caminho de uma tarefa
 
 1. Pegue um card do **Backlog**, mova para **Em andamento** e se atribua.
-2. Leia o card inteiro antes de abrir o código. Olhe principalmente o
-   **Pronto quando** (seu critério de parada) e **A pergunta** (o que você vai
-   responder no fim, e que a IA não responde por você).
-3. Trabalhe com o agente, no orquestrador ou na CLI.
-4. **Leia o diff** antes de aceitar. Três perguntas, sempre:
-   - mexeu só no que a tarefa pedia?
-   - você entende cada linha?
-   - apagou alguma coisa? (olhe as linhas com `-`, não só as com `+`)
+2. Leia o card inteiro antes de abrir o código — principalmente o
+   **Pronto quando** e **A pergunta**.
+3. Trabalhe com o agente.
+4. **Leia o diff.** Mexeu só no que a tarefa pedia? Você entende cada linha?
+   Apagou alguma coisa? (olhe as linhas com `-`, não só as com `+`)
 5. Rode `npm run build` e **olhe a tela**. Build passando não quer dizer tela
    certa — foi exatamente assim que estes defeitos chegaram aqui.
 6. Responda **A pergunta** nos comentários do card.
-7. Mova para **Revisão**.
-
----
-
-## As telas
-
-| Tela | O que tem |
-|---|---|
-| **Login** | e-mail e senha. Autenticação de mentira: qualquer e-mail válido com senha de 4+ caracteres entra |
-| **Dashboard** | cartões de receitas, despesas e saldo, mais o gráfico por mês |
-| **Transações** | a lista, o filtro por tipo e o formulário de lançamento |
-| **Categorias** | criar, listar e excluir, com escolha de cor |
-| **Perfil** | dados do usuário e edição |
-
-Sem sessão, qualquer rota manda para o login.
-
-## Estrutura
-
-```
-src/
-  App.tsx                      as rotas
-  tipos.ts                     os tipos compartilhados
-  auth/sessao.ts               login, sessão e perfil (tudo no navegador)
-  lib/formato.ts               moeda e data no padrão brasileiro
-  mock/db.ts                   o "banco": transações e categorias, com semente
-  componentes/
-    Layout.tsx                 barra de navegação e menu do usuário
-    ListaTransacoes.tsx        a lista
-    CategoriaBadge.tsx         a etiqueta de categoria
-    Resumo.tsx                 os cartões e o gráfico
-    NovaTransacao.tsx          o formulário de lançamento
-  paginas/
-    Login.tsx  Dashboard.tsx  Transacoes.tsx  Categorias.tsx  Perfil.tsx
-```
-
-> O roteador é o `HashRouter`, de propósito: o site é publicado no GitHub Pages,
-> que não tem servidor para reescrever rotas. Com `BrowserRouter`, recarregar a
-> página em `/perfil` devolveria 404.
-
-`lib/formato.ts` merece atenção: as funções de formatação **já existem e
-funcionam**. Mais de uma tarefa é sobre usar o que está lá, não escrever
-formatação nova — duas formatações no mesmo app divergem com o tempo, e aí
-ninguém sabe qual é a certa.
-
----
+7. Abra o pull request.
 
 ## Escrevendo uma tarefa
 

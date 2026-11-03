@@ -1,39 +1,54 @@
-import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { usuarioAtual } from './auth/sessao'
-import { Layout } from './componentes/Layout'
-import { Login } from './paginas/Login'
-import { Dashboard } from './paginas/Dashboard'
-import { Transacoes } from './paginas/Transacoes'
-import { Categorias } from './paginas/Categorias'
-import { Perfil } from './paginas/Perfil'
+import { Navigate, Route, Routes } from "react-router-dom";
+import { AuthLayout } from "@/layouts/AuthLayout";
+import { AppLayout } from "@/layouts/AppLayout";
+import { PublicOnlyRoute } from "@/routes/PublicOnlyRoute";
+import { ProtectedRoute } from "@/routes/ProtectedRoute";
+import { paths } from "@/routes/paths";
+import { LoginPage } from "@/pages/LoginPage";
+import { RegisterPage } from "@/pages/RegisterPage";
+import { ForgotPasswordPage } from "@/pages/ForgotPasswordPage";
+import { ResetPasswordPage } from "@/pages/ResetPasswordPage";
+import { DashboardPage } from "@/pages/DashboardPage";
+import { TransactionsPage } from "@/pages/TransactionsPage";
+import { MembersPage } from "@/pages/MembersPage";
+import { CategoriesPage } from "@/pages/CategoriesPage";
+import { WalletSettingsPage } from "@/pages/WalletSettingsPage";
+import { ProfilePage } from "@/pages/ProfilePage";
+import { ChangePasswordPage } from "@/pages/ChangePasswordPage";
+import { ReportsPage } from "@/pages/ReportsPage";
+import "./App.css";
 
-/** Manda para o login quem não tem sessão. */
-function Protegida({ children }: { children: React.ReactNode }) {
-  return usuarioAtual() ? <>{children}</> : <Navigate to="/login" replace />
-}
-
-export function App() {
-  // HashRouter, e não BrowserRouter: o site é publicado no GitHub Pages, que
-  // não tem servidor para reescrever rotas. Com BrowserRouter, recarregar a
-  // página em /perfil devolveria 404.
+function App() {
   return (
-    <HashRouter>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route
-          element={
-            <Protegida>
-              <Layout />
-            </Protegida>
-          }
-        >
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/transacoes" element={<Transacoes />} />
-          <Route path="/categorias" element={<Categorias />} />
-          <Route path="/perfil" element={<Perfil />} />
+    <Routes>
+      {/* Public: visitors only (if logged in, redirect to the dashboard). */}
+      <Route element={<PublicOnlyRoute />}>
+        <Route element={<AuthLayout />}>
+          <Route path={paths.login} element={<LoginPage />} />
+          <Route path={paths.register} element={<RegisterPage />} />
+          <Route path={paths.forgotPassword} element={<ForgotPasswordPage />} />
+          <Route path={paths.resetPassword} element={<ResetPasswordPage />} />
         </Route>
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </HashRouter>
-  )
+      </Route>
+
+      {/* Protected: require a session. */}
+      <Route element={<ProtectedRoute />}>
+        <Route element={<AppLayout />}>
+          <Route path={paths.dashboard} element={<DashboardPage />} />
+          <Route path={paths.transactions} element={<TransactionsPage />} />
+          <Route path={paths.members} element={<MembersPage />} />
+          <Route path={paths.categories} element={<CategoriesPage />} />
+          <Route path={paths.walletSettings} element={<WalletSettingsPage />} />
+          <Route path={paths.profile} element={<ProfilePage />} />
+          <Route path={paths.changePassword} element={<ChangePasswordPage />} />
+            <Route path={paths.reports} element={<ReportsPage />} />
+        </Route>
+      </Route>
+
+      <Route path="/" element={<Navigate to={paths.dashboard} replace />} />
+      <Route path="*" element={<Navigate to={paths.login} replace />} />
+    </Routes>
+  );
 }
+
+export default App;
