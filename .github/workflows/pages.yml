@@ -27,6 +27,12 @@ jobs:
       - run: npm ci
       - run: npm run build
       - uses: actions/configure-pages@v5
+        # Liga o Pages no modo "GitHub Actions" por conta própria. Sem isto, a
+        # action falha com "Get Pages site failed" até alguém trocar a fonte na
+        # mão em Settings, e o repositório fica publicando o código cru pelo
+        # modo "Deploy from a branch".
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
