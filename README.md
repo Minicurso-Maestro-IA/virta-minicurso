@@ -54,20 +54,40 @@ TypeScript junto, então pega erro que o navegador não mostra.
 
 ---
 
+## As telas
+
+| Tela | O que tem |
+|---|---|
+| **Login** | e-mail e senha. Autenticação de mentira: qualquer e-mail válido com senha de 4+ caracteres entra |
+| **Dashboard** | cartões de receitas, despesas e saldo, mais o gráfico por mês |
+| **Transações** | a lista, o filtro por tipo e o formulário de lançamento |
+| **Categorias** | criar, listar e excluir, com escolha de cor |
+| **Perfil** | dados do usuário e edição |
+
+Sem sessão, qualquer rota manda para o login.
+
 ## Estrutura
 
 ```
 src/
-  App.tsx                      a página: abas, lista e resumo
+  App.tsx                      as rotas
   tipos.ts                     os tipos compartilhados
+  auth/sessao.ts               login, sessão e perfil (tudo no navegador)
   lib/formato.ts               moeda e data no padrão brasileiro
-  mock/db.ts                   o "banco": dados no navegador, com semente
-  components/
+  mock/db.ts                   o "banco": transações e categorias, com semente
+  componentes/
+    Layout.tsx                 barra de navegação e menu do usuário
     ListaTransacoes.tsx        a lista
     CategoriaBadge.tsx         a etiqueta de categoria
     Resumo.tsx                 os cartões e o gráfico
-    NovaTransacao.tsx          o formulário
+    NovaTransacao.tsx          o formulário de lançamento
+  paginas/
+    Login.tsx  Dashboard.tsx  Transacoes.tsx  Categorias.tsx  Perfil.tsx
 ```
+
+> O roteador é o `HashRouter`, de propósito: o site é publicado no GitHub Pages,
+> que não tem servidor para reescrever rotas. Com `BrowserRouter`, recarregar a
+> página em `/perfil` devolveria 404.
 
 `lib/formato.ts` merece atenção: as funções de formatação **já existem e
 funcionam**. Mais de uma tarefa é sobre usar o que está lá, não escrever
