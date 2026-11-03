@@ -43,9 +43,28 @@ function perfilDe(u: UsuarioGuardado) {
   return { id: u.id, name: u.name, email: u.email, photo: u.photo, createdAt: u.createdAt };
 }
 
-/** O usuário da sessão. Com um só no banco, é sempre o primeiro. */
+/** Token da requisição em curso, lido do cabeçalho Authorization. */
+let tokenAtual: string | null = null;
+
+/** Lê o token de `Authorization: Bearer ...`, venha ele de onde vier. */
+function tokenDe(entrada: RequestInfo | URL, init?: RequestInit): string | null {
+  const cabecalhos = new Headers(
+    init?.headers ?? (entrada instanceof Request ? entrada.headers : undefined),
+  );
+  const auth = cabecalhos.get("Authorization");
+  return auth ? auth.replace(/^Bearer\s+/i, "") : null;
+}
+
+/**
+ * O usuário da sessão, tirado do token que veio na requisição. O token é
+ * `falso-<id>-<timestamp>`, montado no login. Sem token reconhecível cai no
+ * primeiro do banco (a Maria da semente), que é o caso de quem ainda não
+ * entrou.
+ */
 function usuarioLogado(): UsuarioGuardado {
-  return banco().usuarios[0];
+  const b = banco();
+  const id = Number(tokenAtual?.split("-")[1]);
+  return b.usuarios.find((u) => u.id === id) ?? b.usuarios[0];
 }
 
 // --- transações e resumo ------------------------------------------------
@@ -416,6 +435,7 @@ export function instalarServidorFalso(): void {
     }
 
     await esperar();
+    tokenAtual = tokenDe(entrada, init);
     const resposta = await responder(metodo, caminho, busca, init);
     return resposta ?? erro(`Rota não implementada no servidor falso: ${metodo} ${caminho}`, 404);
   };

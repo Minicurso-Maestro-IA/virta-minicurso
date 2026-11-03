@@ -9,6 +9,10 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: "pt",
+    // Só o idioma, sem a região: o navegador pede "pt-BR" e os arquivos são
+    // "pt" e "en". Sem isto, toda carga tenta /locales/pt-BR e toma 404 antes
+    // de cair no fallback.
+    load: "languageOnly",
     debug: false,
     interpolation: {
       escapeValue: false,
