@@ -16,6 +16,7 @@ import {
   updateTransaction,
 } from "@/services/transactionService";
 import { listCategories } from "@/services/categoryService";
+import { filterTransactions, type TransactionFilter } from "@/utils/transactionFilter.js";
 import type { Transaction, TransactionType } from "@/types/transaction";
 import type { Category } from "@/types/category";
 import { CategoryBadge } from "@/components/CategoryBadge";
@@ -48,9 +49,16 @@ interface Props {
   canWrite: boolean;
 }
 
+const FILTER_OPTIONS: { value: TransactionFilter; label: string }[] = [
+  { value: "ALL", label: "Tudo" },
+  { value: "INCOME", label: "Receitas" },
+  { value: "EXPENSE", label: "Despesas" },
+];
+
 export function WalletTransactions({ walletId, canWrite }: Props) {
   const { t } = useTranslation();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [filter, setFilter] = useState<TransactionFilter>("ALL");
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
@@ -81,6 +89,7 @@ export function WalletTransactions({ walletId, canWrite }: Props) {
   }
 
   useEffect(() => {
+    setFilter("ALL");
     void load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [walletId]);
@@ -165,6 +174,7 @@ export function WalletTransactions({ walletId, canWrite }: Props) {
     "h-10 w-full px-3 rounded-lg border border-zinc-200 outline-none transition-all focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10";
   const availableCategories = categories.filter((c) => c.type === type);
   const editing = editingId != null;
+  const filteredTransactions = filterTransactions(transactions, filter);
 
   return (
     <section className="rounded-2xl border border-zinc-200 bg-white p-6">
@@ -185,17 +195,46 @@ export function WalletTransactions({ walletId, canWrite }: Props) {
         )}
       </div>
 
+      <div className="mb-4 flex items-center">
+        <div
+          className="inline-flex rounded-lg border border-zinc-200 p-1"
+          role="group"
+          aria-label="Filtro de transações"
+        >
+          {FILTER_OPTIONS.map((opt) => {
+            const active = filter === opt.value;
+            return (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => setFilter(opt.value)}
+                aria-pressed={active}
+                className={`h-8 rounded-md px-3 text-sm font-medium transition-colors cursor-pointer ${
+                  active
+                    ? "bg-brand-500 text-white shadow-xs"
+                    : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900"
+                }`}
+              >
+                {opt.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {loading ? (
         <div className="grid place-items-center py-10">
           <Loader2 className="h-6 w-6 animate-spin text-brand-500" />
         </div>
-      ) : transactions.length === 0 ? (
+      ) : filteredTransactions.length === 0 ? (
         <p className="py-8 text-center text-sm text-zinc-500">
-          {t("app.transactions.empty")}
+          {transactions.length === 0
+            ? t("app.transactions.empty")
+            : t("app.reports.empty")}
         </p>
       ) : (
         <ul className="divide-y divide-zinc-100">
-          {transactions.map((tx) => {
+          {filteredTransactions.map((tx) => {
             const income = tx.type === "INCOME";
             return (
               <li key={tx.id} className="flex items-center gap-3 py-3">
