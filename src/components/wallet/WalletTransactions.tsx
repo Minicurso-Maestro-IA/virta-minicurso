@@ -222,12 +222,10 @@ export function WalletTransactions({ walletId, canWrite }: Props) {
                     <span className="text-xs text-zinc-500">
                       {tx.date}
                     </span>
-                    {tx.categoryName && (
-                      <CategoryBadge
-                        name={tx.categoryName}
-                        color={tx.categoryColor}
-                      />
-                    )}
+                    <CategoryBadge
+                      name={tx.categoryName}
+                      color={tx.categoryColor}
+                    />
                   </div>
                 </div>
                 <span

@@ -249,12 +249,10 @@ export function DashboardPage() {
                           <span className="text-xs text-zinc-500">
                             {formatDate(tx.date)}
                           </span>
-                          {tx.categoryName && (
-                            <CategoryBadge
-                              name={tx.categoryName}
-                              color={tx.categoryColor}
-                            />
-                          )}
+                          <CategoryBadge
+                            name={tx.categoryName}
+                            color={tx.categoryColor}
+                          />
                         </div>
                       </div>
                       <span
